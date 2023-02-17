@@ -1,6 +1,6 @@
 #include <stddef.h>
 #include <stdint.h>
-#include <types.h>
+#include <clipper2c/types.h>
 
 #ifdef __cplusplus
 extern "C" {
