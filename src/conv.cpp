@@ -1,6 +1,6 @@
 #include "conv.h"
 #include "clipper2/clipper.core.h"
-#include "types.h"
+#include "clipper2c/types.h"
 
 ClipperPoint64 to_c(Clipper2Lib::Point64 p) { return {p.x, p.y}; }
 

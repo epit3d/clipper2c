@@ -20,7 +20,7 @@ target_link_libraries(
   PRIVATE Clipper2
 )
 
-target_include_directories(clipper2c PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(clipper2c PUBLIC clipper2c/include)
 
 
 set_target_properties(clipper2c PROPERTIES FOLDER Libraries

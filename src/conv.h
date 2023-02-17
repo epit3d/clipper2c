@@ -1,5 +1,5 @@
 #pragma once
-#include "types.h"
+#include "clipper2c/types.h"
 #include <clipper2/clipper.h>
 
 ClipperPoint64 to_c(Clipper2Lib::Point64 p);
