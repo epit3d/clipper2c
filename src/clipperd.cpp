@@ -1,8 +1,8 @@
 #include <clipper2/clipper.h>
 
 #include "conv.h"
-#include "clipper2c/types.h"
-#include <clipper2c/clipper2c.h>
+#include "../include/clipper2c/types.h"
+#include "../include/clipper2c/clipper2c.h"
 #include <stdint.h>
 
 using namespace Clipper2Lib;

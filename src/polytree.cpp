@@ -1,9 +1,9 @@
 #include <clipper2/clipper.h>
-#include <clipper2c/clipper2c.h>
 
 #include "clipper2/clipper.engine.h"
 #include "conv.h"
-#include "clipper2c/types.h"
+#include "../include/clipper2c/types.h"
+#include "../include/clipper2c/clipper2c.h"
 #include <stdint.h>
 
 using namespace Clipper2Lib;

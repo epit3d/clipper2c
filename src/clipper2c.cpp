@@ -5,8 +5,8 @@
 
 #include "clipper2/clipper.offset.h"
 #include "conv.h"
-#include "clipper2c/types.h"
-#include <clipper2c/clipper2c.h>
+#include "../include/clipper2c/types.h"
+#include "../include/clipper2c/clipper2c.h"
 
 using namespace Clipper2Lib;
 
