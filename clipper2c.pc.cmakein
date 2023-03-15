@@ -1,0 +1,12 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
+includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+
+Name: clipper2c@PCFILE_LIB_SUFFIX@
+Description: C warpper of a Polygon Clipping and Offsetting library in C++
+Version: @PROJECT_VERSION@
+URL: https://github.com/epit3d/clipper2c
+Requires:
+Libs: -L${libdir} -lclipper2c@PCFILE_LIB_SUFFIX@
+Cflags: -I${includedir}
