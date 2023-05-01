@@ -67,6 +67,13 @@ void clipper_clipperoffset_clear(ClipperClipperOffset *c) {
   from_c(c)->Clear();
 }
 
+#ifdef USINGZ
+void clipper_clipperoffset_set_zcallback(ClipperClipperOffset *c,
+                                     ClipperZCallback64 cb) {
+  from_c(c)->SetZCallback(from_c(cb));
+}
+#endif
+
 // Methods
 
 void clipper_clipperoffset_add_pathd(ClipperClipperOffset *c, ClipperPathD *p,

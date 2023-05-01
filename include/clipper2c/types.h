@@ -87,19 +87,17 @@ typedef enum ClipperPointInPolygonResult {
 
 #ifdef USINGZ
 // defintion of z callbacks
-
 typedef ClipperPoint64 (*ClipperZCallback64)(ClipperPoint64 e1bot,
                                              ClipperPoint64 e1top,
                                              ClipperPoint64 e2bot,
                                              ClipperPoint64 e2top,
                                              ClipperPoint64 pt);
 
-// typedef void (*ClipperZCallbackD)(const ClipperPointD *e1bot,
-//                                   const ClipperPointD *e1top,
-//                                   const ClipperPointD *e2bot,
-//                                   const ClipperPointD *e2top,
-//                                   ClipperPointD *pt);
-
+typedef ClipperPointD (*ClipperZCallbackD)(ClipperPointD e1bot,
+                                           ClipperPointD e1top,
+                                           ClipperPointD e2bot,
+                                           ClipperPointD e2top,
+                                           ClipperPointD pt);
 #endif
 
 #ifdef __cplusplus

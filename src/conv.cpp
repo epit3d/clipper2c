@@ -306,26 +306,25 @@ Clipper2Lib::PointInPolygonResult from_c(ClipperPointInPolygonResult result) {
 }
 
 #ifdef USINGZ
-
 Clipper2Lib::ZCallback64 from_c(ClipperZCallback64 zcb) {
   return [zcb](const Clipper2Lib::Point64 &e1bot,
                const Clipper2Lib::Point64 &e1top,
                const Clipper2Lib::Point64 &e2bot,
                const Clipper2Lib::Point64 &e2top, Clipper2Lib::Point64 &pt) {
-    printf("zcb is %p\n", zcb);
-    printf("myZCB with point %ld %ld %ld\n", pt.x, pt.y, pt.z);
     ClipperPoint64 res =
         zcb(to_c(e1bot), to_c(e1top), to_c(e2bot), to_c(e2top), to_c(pt));
-    pt.x = res.x;
-    pt.y = res.y;
-    pt.z = res.z;
+    pt = from_c(res);
+  };
+}
 
-    printf("after myZCB with point %ld %ld %ld\n", pt.x, pt.y, pt.z);
-
-    //    ClipperPoint64 res = (*zcb)(to_c(e1bot), to_c(e1top), to_c(e2bot),
-    //    to_c(e2top), to_c(pt));
-
-    //        printf("result from callback %ld %ld %ld\n", res.x, res.y, res.z);
+Clipper2Lib::ZCallbackD from_c(ClipperZCallbackD zcb) {
+  return [zcb](const Clipper2Lib::PointD &e1bot,
+               const Clipper2Lib::PointD &e1top,
+               const Clipper2Lib::PointD &e2bot,
+               const Clipper2Lib::PointD &e2top, Clipper2Lib::PointD &pt) {
+    ClipperPointD res =
+        zcb(to_c(e1bot), to_c(e1top), to_c(e2bot), to_c(e2top), to_c(pt));
+    pt = from_c(res);
   };
 }
 #endif

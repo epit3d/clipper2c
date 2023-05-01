@@ -37,6 +37,13 @@ int clipper_clipperd_get_reverse_solution(ClipperClipperD *c) {
 
 void clipper_clipperd_clear(ClipperClipperD *c) { from_c(c)->Clear(); }
 
+#ifdef USINGZ
+void clipper_clipperd_set_zcallback(ClipperClipperD *c,
+                                     ClipperZCallbackD cb) {
+  from_c(c)->SetZCallback(from_c(cb));
+}
+#endif
+
 // Methods
 
 void clipper_clipperd_add_subject(ClipperClipperD *c, ClipperPathsD *subjects) {
