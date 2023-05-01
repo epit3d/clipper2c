@@ -1,6 +1,6 @@
+#include "types.h"
 #include <stddef.h>
 #include <stdint.h>
-#include "types.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -344,6 +344,11 @@ void clipper_clipper64_set_reverse_solution(ClipperClipper64 *c, int t);
 int clipper_clipper64_get_preserve_collinear(ClipperClipper64 *c);
 int clipper_clipper64_get_reverse_solution(ClipperClipper64 *c);
 void clipper_clipper64_clear(ClipperClipper64 *c);
+
+#ifdef USINGZ
+void clipper_clipper64_set_zcallback(ClipperClipper64 *c,
+                                     ClipperZCallback64 cb);
+#endif
 
 // ClipperD Setters / Getters
 //

@@ -37,6 +37,13 @@ int clipper_clipper64_get_reverse_solution(ClipperClipper64 *c) {
 
 void clipper_clipper64_clear(ClipperClipper64 *c) { from_c(c)->Clear(); }
 
+#ifdef USINGZ
+void clipper_clipper64_set_zcallback(ClipperClipper64 *c,
+                                     ClipperZCallback64 cb) {
+  from_c(c)->SetZCallback(from_c(cb));
+}
+#endif
+
 // Methods
 
 void clipper_clipper64_add_subject(ClipperClipper64 *c,

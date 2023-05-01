@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
-project(clipper2c LANGUAGES CXX)
+project(clipper2c LANGUAGES CXX C)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -22,10 +22,21 @@ set(PCFILE "${CMAKE_CURRENT_BINARY_DIR}/clipper2c.pc")
 
 add_library(clipper2c SHARED ${INCLUDE_FILES} ${SOURCE_FILES})
 
+# add compilation of examples/sample.c
+add_executable(sample examples/sample.c)
+
 target_link_libraries(
   clipper2c
-  PRIVATE Clipper2
+  PRIVATE Clipper2Z
 )
+
+# link sample.c
+target_link_libraries(
+  sample
+  PRIVATE clipper2c Clipper2Z
+)
+
+target_include_directories(sample PUBLIC clipper2c/include)
 
 target_include_directories(clipper2c PUBLIC clipper2c/include)
 

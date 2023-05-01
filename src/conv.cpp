@@ -1,10 +1,13 @@
 #include "conv.h"
 #include "clipper2/clipper.core.h"
-#include "../include/clipper2c/types.h"
 
+#ifndef USINGZ
 ClipperPoint64 to_c(Clipper2Lib::Point64 p) { return {p.x, p.y}; }
-
 ClipperPointD to_c(Clipper2Lib::PointD p) { return {p.x, p.y}; }
+#else
+ClipperPoint64 to_c(Clipper2Lib::Point64 p) { return {p.x, p.y, p.z}; }
+ClipperPointD to_c(Clipper2Lib::PointD p) { return {p.x, p.y, p.z}; }
+#endif
 
 ClipperPath64 *to_c(Clipper2Lib::Path64 *p) {
   return reinterpret_cast<ClipperPath64 *>(p);
@@ -140,6 +143,16 @@ ClipperPointInPolygonResult to_c(Clipper2Lib::PointInPolygonResult result) {
   return res;
 }
 
+#ifdef USINGZ
+// ClipperZCallback64 *to_c(Clipper2Lib::ZCallback64 *zcb) {
+//   return reinterpret_cast<ClipperZCallback64 *>(zcb);
+// }
+// ClipperZCallbackD *to_c(Clipper2Lib::ZCallbackD *zcb) {
+//   return reinterpret_cast<ClipperZCallbackD *>(zcb);
+// }
+#endif
+
+#ifndef USINGZ
 Clipper2Lib::Point64 from_c(ClipperPoint64 p) {
   return Clipper2Lib::Point64(p.x, p.y);
 }
@@ -147,6 +160,15 @@ Clipper2Lib::Point64 from_c(ClipperPoint64 p) {
 Clipper2Lib::PointD from_c(ClipperPointD p) {
   return Clipper2Lib::PointD(p.x, p.y);
 }
+#else
+Clipper2Lib::Point64 from_c(ClipperPoint64 p) {
+  return Clipper2Lib::Point64(p.x, p.y, p.z);
+}
+
+Clipper2Lib::PointD from_c(ClipperPointD p) {
+  return Clipper2Lib::PointD(p.x, p.y, p.z);
+}
+#endif
 
 Clipper2Lib::Path64 *from_c(ClipperPath64 *p) {
   return reinterpret_cast<Clipper2Lib::Path64 *>(p);
@@ -282,3 +304,28 @@ Clipper2Lib::PointInPolygonResult from_c(ClipperPointInPolygonResult result) {
   };
   return res;
 }
+
+#ifdef USINGZ
+
+Clipper2Lib::ZCallback64 from_c(ClipperZCallback64 zcb) {
+  return [zcb](const Clipper2Lib::Point64 &e1bot,
+               const Clipper2Lib::Point64 &e1top,
+               const Clipper2Lib::Point64 &e2bot,
+               const Clipper2Lib::Point64 &e2top, Clipper2Lib::Point64 &pt) {
+    printf("zcb is %p\n", zcb);
+    printf("myZCB with point %ld %ld %ld\n", pt.x, pt.y, pt.z);
+    ClipperPoint64 res =
+        zcb(to_c(e1bot), to_c(e1top), to_c(e2bot), to_c(e2top), to_c(pt));
+    pt.x = res.x;
+    pt.y = res.y;
+    pt.z = res.z;
+
+    printf("after myZCB with point %ld %ld %ld\n", pt.x, pt.y, pt.z);
+
+    //    ClipperPoint64 res = (*zcb)(to_c(e1bot), to_c(e1top), to_c(e2bot),
+    //    to_c(e2top), to_c(pt));
+
+    //        printf("result from callback %ld %ld %ld\n", res.x, res.y, res.z);
+  };
+}
+#endif

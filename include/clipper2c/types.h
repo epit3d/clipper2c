@@ -21,11 +21,17 @@ typedef struct ClipperPolyTreeD ClipperPolyTreeD;
 typedef struct ClipperPointD {
   double x;
   double y;
+#ifdef USINGZ
+  double z;
+#endif
 } ClipperPointD;
 
 typedef struct ClipperPoint64 {
   int64_t x;
   int64_t y;
+#ifdef USINGZ
+  int64_t z;
+#endif
 } ClipperPoint64;
 
 struct ClipperRect64 {
@@ -78,6 +84,23 @@ typedef enum ClipperPointInPolygonResult {
   IS_INSIDE,
   IS_OUTSIDE
 } ClipperPointInPolygonResult;
+
+#ifdef USINGZ
+// defintion of z callbacks
+
+typedef ClipperPoint64 (*ClipperZCallback64)(ClipperPoint64 e1bot,
+                                             ClipperPoint64 e1top,
+                                             ClipperPoint64 e2bot,
+                                             ClipperPoint64 e2top,
+                                             ClipperPoint64 pt);
+
+// typedef void (*ClipperZCallbackD)(const ClipperPointD *e1bot,
+//                                   const ClipperPointD *e1top,
+//                                   const ClipperPointD *e2bot,
+//                                   const ClipperPointD *e2top,
+//                                   ClipperPointD *pt);
+
+#endif
 
 #ifdef __cplusplus
 }
