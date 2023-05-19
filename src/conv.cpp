@@ -1,6 +1,6 @@
 #include "conv.h"
-#include "clipper2/clipper.core.h"
 #include "../include/clipper2c/types.h"
+#include "clipper2/clipper.core.h"
 
 ClipperPoint64 to_c(Clipper2Lib::Point64 p) { return {p.x, p.y}; }
 
@@ -281,4 +281,18 @@ Clipper2Lib::PointInPolygonResult from_c(ClipperPointInPolygonResult result) {
     break;
   };
   return res;
+}
+
+Clipper2Lib::DeltaCallback64 from_c(ClipperDeltaCallback64 cb) {
+  return [=](const Clipper2Lib::Path64 &path,
+             const Clipper2Lib::PathD &path_normals, size_t curr_idx,
+             size_t prev_idx) {
+    // casting is required because input parameters are const
+    auto *cpath64 = const_cast<ClipperPath64 *>(
+        reinterpret_cast<const ClipperPath64 *>(&path));
+    auto *cpathd = const_cast<ClipperPathD *>(
+        reinterpret_cast<const ClipperPathD *>(&path_normals));
+
+    return cb(cpath64, cpathd, curr_idx, prev_idx);
+  };
 }

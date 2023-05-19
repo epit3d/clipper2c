@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
-project(clipper2c LANGUAGES CXX)
+project(clipper2c LANGUAGES CXX C)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -21,6 +21,19 @@ file(GLOB_RECURSE INCLUDE_FILES include/*.h)
 set(PCFILE "${CMAKE_CURRENT_BINARY_DIR}/clipper2c.pc")
 
 add_library(clipper2c SHARED ${INCLUDE_FILES} ${SOURCE_FILES})
+
+# add executable if CLIPPER2_EXAMPLES is ON
+if(CLIPPER2_EXAMPLES)
+    add_executable(offset examples/offset.c)
+
+    # link offset.c
+    target_link_libraries(
+            offset
+            PRIVATE clipper2c Clipper2
+    )
+endif()
+
+target_include_directories(offset PUBLIC clipper2c/include)
 
 target_link_libraries(
   clipper2c
