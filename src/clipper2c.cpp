@@ -3,10 +3,10 @@
 #include <cmath>
 #include <cstdint>
 
+#include "../include/clipper2c/clipper2c.h"
+#include "../include/clipper2c/types.h"
 #include "clipper2/clipper.offset.h"
 #include "conv.h"
-#include "../include/clipper2c/types.h"
-#include "../include/clipper2c/clipper2c.h"
 
 using namespace Clipper2Lib;
 
@@ -175,54 +175,17 @@ ClipperRectD *clipper_pathsd_bounds(void *mem, ClipperPathsD *paths) {
   return to_c(new (mem) RectD(r));
 }
 
-//ClipperPaths64 *clipper_path64_rect_clip(void *mem, ClipperRect64 *rect,
-//                                         ClipperPath64 *path) {
-//  auto p = RectClip(*from_c(rect), *from_c(path));
-//  return to_c(new (mem) Paths64(p));
-//}
-//
-//ClipperPathsD *clipper_pathd_rect_clip(void *mem, ClipperRectD *rect,
-//                                       ClipperPathD *path, int precision) {
-//  auto p = RectClip(*from_c(rect), *from_c(path), precision);
-//  return to_c(new (mem) PathsD(p));
-//}
-//
-//ClipperPaths64 *clipper_paths64_rect_clip(void *mem, ClipperRect64 *rect,
-//                                          ClipperPaths64 *paths) {
-//  auto p = RectClip(*from_c(rect), *from_c(paths));
-//  return to_c(new (mem) Paths64(p));
-//}
-//
-//ClipperPathsD *clipper_pathsd_rect_clip(void *mem, ClipperRectD *rect,
-//                                        ClipperPathsD *paths, int precision) {
-//  auto p = RectClip(*from_c(rect), *from_c(paths), precision);
-//  return to_c(new (mem) PathsD(p));
-//}
-//
-//ClipperPaths64 *clipper_path64_rect_clip_line(void *mem, ClipperRect64 *rect,
-//                                              ClipperPath64 *path) {
-//  auto p = RectClipLines(*from_c(rect), *from_c(path));
-//  return to_c(new (mem) Paths64(p));
-//}
-//
-//ClipperPathsD *clipper_pathd_rect_clip_line(void *mem, ClipperRectD *rect,
-//                                            ClipperPathD *path, int precision) {
-//  auto p = RectClipLines(*from_c(rect), *from_c(path), precision);
-//  return to_c(new (mem) PathsD(p));
-//}
-//
-//ClipperPaths64 *clipper_paths64_rect_clip_lines(void *mem, ClipperRect64 *rect,
-//                                                ClipperPaths64 *paths) {
-//  auto p = RectClipLines(*from_c(rect), *from_c(paths));
-//  return to_c(new (mem) Paths64(p));
-//}
-//
-//ClipperPathsD *clipper_pathsd_rect_clip_lines(void *mem, ClipperRectD *rect,
-//                                              ClipperPathsD *paths,
-//                                              int precision) {
-//  auto p = RectClipLines(*from_c(rect), *from_c(paths), precision);
-//  return to_c(new (mem) PathsD(p));
-//}
+ClipperPaths64 *clipper_paths64_rect_clip(void *mem, ClipperRect64 *rect,
+                                          ClipperPaths64 *paths) {
+  auto crect = RectClip(*from_c(rect));
+  return to_c(new (mem) Paths64(crect.Execute(*from_c(paths))));
+}
+
+ClipperPaths64 *clipper_paths64_rect_clip_lines(void *mem, ClipperRect64 *rect,
+                                                ClipperPaths64 *paths) {
+  auto rectclip = RectClipLines(*from_c(rect));
+  return to_c(new (mem) Paths64(rectclip.Execute(*from_c(paths))));
+}
 
 // Path Constructors
 
@@ -568,30 +531,32 @@ ClipperPathsD *clipper_pathsd_strip_near_equal(void *mem, ClipperPathsD *paths,
   return to_c(new (mem) PathsD(p));
 }
 
-//ClipperPath64 *clipper_path64_strip_duplicates(void *mem, ClipperPath64 *path,
-//                                               int is_closed_path) {
-//  auto p = StripDuplicates(*from_c(path), is_closed_path);
-//  return to_c(new (mem) Path64(p));
-//}
+// ClipperPath64 *clipper_path64_strip_duplicates(void *mem, ClipperPath64
+// *path,
+//                                                int is_closed_path) {
+//   auto p = StripDuplicates(*from_c(path), is_closed_path);
+//   return to_c(new (mem) Path64(p));
+// }
 //
-//ClipperPathD *clipper_pathd_strip_duplicates(void *mem, ClipperPathD *path,
-//                                             int is_closed_path) {
-//  auto p = StripDuplicates(*from_c(path), is_closed_path);
-//  return to_c(new (mem) PathD(p));
-//}
+// ClipperPathD *clipper_pathd_strip_duplicates(void *mem, ClipperPathD *path,
+//                                              int is_closed_path) {
+//   auto p = StripDuplicates(*from_c(path), is_closed_path);
+//   return to_c(new (mem) PathD(p));
+// }
 //
-//ClipperPaths64 *clipper_paths64_strip_duplicates(void *mem,
-//                                                 ClipperPaths64 *paths,
-//                                                 int is_closed_paths) {
-//  auto p = StripDuplicates(*from_c(paths), is_closed_paths);
-//  return to_c(new (mem) Paths64(p));
-//}
+// ClipperPaths64 *clipper_paths64_strip_duplicates(void *mem,
+//                                                  ClipperPaths64 *paths,
+//                                                  int is_closed_paths) {
+//   auto p = StripDuplicates(*from_c(paths), is_closed_paths);
+//   return to_c(new (mem) Paths64(p));
+// }
 
-//ClipperPathsD *clipper_pathsd_strip_duplicates(void *mem, ClipperPathsD *paths,
-//                                               int is_closed_paths) {
-//  auto p = StripDuplicates(*from_c(paths), is_closed_paths);
-//  return to_c(new (mem) PathsD(p));
-//}
+// ClipperPathsD *clipper_pathsd_strip_duplicates(void *mem, ClipperPathsD
+// *paths,
+//                                                int is_closed_paths) {
+//   auto p = StripDuplicates(*from_c(paths), is_closed_paths);
+//   return to_c(new (mem) PathsD(p));
+// }
 
 // Path Conversions
 

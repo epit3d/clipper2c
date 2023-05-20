@@ -63,30 +63,13 @@ ClipperPathsD *clipper_pathsd_inflate(void *mem, ClipperPathsD *paths,
                                       int precision);
 
 // Rect Clipping
-
-ClipperRect64 *clipper_path64_bounds(void *mem, ClipperPath64 *path);
-ClipperRectD *clipper_pathd_bounds(void *mem, ClipperPathD *path);
 ClipperRect64 *clipper_paths64_bounds(void *mem, ClipperPaths64 *paths);
-ClipperRectD *clipper_pathsd_bounds(void *mem, ClipperPathsD *paths);
-ClipperPaths64 *clipper_path64_rect_clip(void *mem, ClipperRect64 *rect,
-                                         ClipperPath64 *path);
-ClipperPathsD *clipper_pathd_rect_clip(void *mem, ClipperRectD *rect,
-                                       ClipperPathD *path, int precision);
 ClipperPaths64 *clipper_paths64_rect_clip(void *mem, ClipperRect64 *rect,
                                           ClipperPaths64 *paths);
-ClipperPathsD *clipper_pathsd_rect_clip(void *mem, ClipperRectD *rect,
-                                        ClipperPathsD *paths, int precision);
-ClipperPaths64 *clipper_path64_rect_clip_line(void *mem, ClipperRect64 *rect,
-                                              ClipperPath64 *path);
-ClipperPathsD *clipper_pathd_rect_clip_line(void *mem, ClipperRectD *rect,
-                                            ClipperPathD *path, int precision);
 ClipperPaths64 *clipper_paths64_rect_clip_lines(void *mem, ClipperRect64 *rect,
                                                 ClipperPaths64 *paths);
-ClipperPathsD *clipper_pathsd_rect_clip_lines(void *mem, ClipperRectD *rect,
-                                              ClipperPathsD *paths,
-                                              int precision);
-// Path Constructors
 
+// Path Constructors
 ClipperPath64 *clipper_path64(void *mem);
 ClipperPathD *clipper_pathd(void *mem);
 ClipperPath64 *clipper_path64_of_points(void *mem, ClipperPoint64 *pts,
@@ -294,43 +277,27 @@ ClipperPathD *clipper_polytreed_polygon(void *mem, ClipperPolyTreeD *pt);
 double clipper_polytreed_area(ClipperPolyTreeD *pt);
 ClipperPathsD *clipper_polytreed_to_paths(void *mem, ClipperPolyTreeD *pt);
 
-//// Rect Constructors
-//
-//ClipperRect64 *clipper_rect64(void *mem, int64_t left, int64_t top,
-//                              int64_t right, int64_t bottom);
-//ClipperRectD *clipper_rectd(void *mem, double left, double top, double right,
-//                            double bottom);
-//
-//// Rect64 Methods
-//
-//int64_t clipper_rect64_width(ClipperRect64 *r);
-//int64_t clipper_rect64_height(ClipperRect64 *r);
-//ClipperPoint64 clipper_rect64_midpoint(ClipperRect64 *r);
-//ClipperPath64 *clipper_rect64_as_path(void *mem, ClipperRect64 *r);
-//int clipper_rect64_contains_pt(ClipperRect64 *r, ClipperPoint64 pt);
-//int clipper_rect64_contains_rect(ClipperRect64 *a, ClipperRect64 *b);
-//void clipper_rect64_scale_mut(ClipperRect64 *r, double scale);
-//ClipperRect64 *clipper_rect64_scale(void *mem, ClipperRect64 *r, double scale);
-//int clipper_rect64_is_empty(ClipperRect64 *r);
-//int clipper_rect64_intersects(ClipperRect64 *a, ClipperRect64 *b);
-//
-//// RectD Methods
-//
-//double clipper_rectd_width(ClipperRectD *r);
-//double clipper_rectd_height(ClipperRectD *r);
-//ClipperPointD clipper_rectd_midpoint(ClipperRectD *r);
-//ClipperPathD *clipper_rectd_as_path(void *mem, ClipperRectD *r);
-//int clipper_rectd_contains_pt(ClipperRectD *r, ClipperPointD pt);
-//int clipper_rectd_contains_rect(ClipperRectD *a, ClipperRectD *b);
-//void clipper_rectd_scale_mut(ClipperRectD *r, double scale);
-//ClipperRectD *clipper_rectd_scale(void *mem, ClipperRectD *r, double scale);
-//int clipper_rectd_is_empty(ClipperRectD *r);
-//int clipper_rectd_intersects(ClipperRectD *a, ClipperRectD *b);
-//
-//// Rect Conversions (to C)
-//
-//struct ClipperRect64 clipper_rect64_to_struct(ClipperRect64 *rect);
-//struct ClipperRectD clipper_rectd_to_struct(ClipperRectD *rect);
+// Rect Constructors
+
+ClipperRect64 *clipper_rect64(void *mem, int64_t left, int64_t top,
+                              int64_t right, int64_t bottom);
+
+// Rect64 Methods
+
+int64_t clipper_rect64_width(ClipperRect64 *r);
+int64_t clipper_rect64_height(ClipperRect64 *r);
+ClipperPoint64 clipper_rect64_midpoint(ClipperRect64 *r);
+ClipperPath64 *clipper_rect64_as_path(void *mem, ClipperRect64 *r);
+int clipper_rect64_contains_pt(ClipperRect64 *r, ClipperPoint64 pt);
+int clipper_rect64_contains_rect(ClipperRect64 *a, ClipperRect64 *b);
+void clipper_rect64_scale_mut(ClipperRect64 *r, double scale);
+ClipperRect64 *clipper_rect64_scale(void *mem, ClipperRect64 *r, double scale);
+int clipper_rect64_is_empty(ClipperRect64 *r);
+int clipper_rect64_intersects(ClipperRect64 *a, ClipperRect64 *b);
+
+// Rect Conversions (to C)
+
+struct ClipperRect64 clipper_rect64_to_struct(ClipperRect64 *rect);
 
 // Clipper Contsructors
 
@@ -410,13 +377,6 @@ int clipper_clipperoffset_error_code(ClipperClipperOffset *c);
 void clipper_clipperoffset_clear(ClipperClipperOffset *c);
 
 // ClipperOffset Methods
-
-// void clipper_clipperoffset_add_pathd(ClipperClipperOffset *c, ClipperPathD
-// *p,
-//                                      ClipperJoinType jt, ClipperEndType et);
-// void clipper_clipperoffset_add_pathsd(ClipperClipperOffset *c, ClipperPathsD
-// *p,
-//                                       ClipperJoinType jt, ClipperEndType et);
 void clipper_clipperoffset_add_path64(ClipperClipperOffset *c, ClipperPath64 *p,
                                       ClipperJoinType jt, ClipperEndType et);
 void clipper_clipperoffset_add_paths64(ClipperClipperOffset *c,

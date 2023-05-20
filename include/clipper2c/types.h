@@ -28,19 +28,12 @@ typedef struct ClipperPoint64 {
   int64_t y;
 } ClipperPoint64;
 
-//struct ClipperRect64 {
-//  int64_t left;
-//  int64_t top;
-//  int64_t right;
-//  int64_t bottom;
-//};
-//
-//struct ClipperRectD {
-//  double left;
-//  double top;
-//  double right;
-//  double bottom;
-//};
+struct ClipperRect64 {
+  int64_t left;
+  int64_t top;
+  int64_t right;
+  int64_t bottom;
+};
 
 typedef enum ClipperFillRule {
   EVEN_ODD,
