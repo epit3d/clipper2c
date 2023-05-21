@@ -1,9 +1,9 @@
 #include <clipper2/clipper.h>
 
+#include "../include/clipper2c/clipper2c.h"
+#include "../include/clipper2c/types.h"
 #include "clipper2/clipper.core.h"
 #include "conv.h"
-#include "../include/clipper2c/types.h"
-#include "../include/clipper2c/clipper2c.h"
 #include <stdint.h>
 
 using namespace Clipper2Lib;
@@ -69,16 +69,6 @@ void clipper_clipperoffset_clear(ClipperClipperOffset *c) {
 
 // Methods
 
-void clipper_clipperoffset_add_pathd(ClipperClipperOffset *c, ClipperPathD *p,
-                                     ClipperJoinType jt, ClipperEndType et) {
-  from_c(c)->AddPath(*from_c(p), from_c(jt), from_c(et));
-}
-
-void clipper_clipperoffset_add_pathsd(ClipperClipperOffset *c, ClipperPathsD *p,
-                                      ClipperJoinType jt, ClipperEndType et) {
-  from_c(c)->AddPaths(*from_c(p), from_c(jt), from_c(et));
-}
-
 void clipper_clipperoffset_add_path64(ClipperClipperOffset *c, ClipperPath64 *p,
                                       ClipperJoinType jt, ClipperEndType et) {
   from_c(c)->AddPath(*from_c(p), from_c(jt), from_c(et));
@@ -93,7 +83,17 @@ void clipper_clipperoffset_add_paths64(ClipperClipperOffset *c,
 ClipperPaths64 *clipper_clipperoffset_execute(void *mem,
                                               ClipperClipperOffset *c,
                                               double delta) {
-  return to_c(new (mem) Paths64(from_c(c)->Execute(delta)));
+  auto result = new (mem) Paths64();
+  from_c(c)->Execute(delta, *result);
+  return to_c(result);
+}
+
+ClipperPaths64 *
+clipper_clipperoffset_execute_callback(void *mem, ClipperClipperOffset *c,
+                                       ClipperDeltaCallback64 cb) {
+        auto result = new (mem) Paths64();
+        from_c(c)->Execute(from_c(cb), *result);
+        return to_c(result);
 }
 
 #ifdef __cplusplus

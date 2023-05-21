@@ -53,3 +53,9 @@ dkms.conf
 
 .cache/
 build/
+
+# cmake build debug and release
+cmake-build-debug
+cmake-build-release
+
+.idea

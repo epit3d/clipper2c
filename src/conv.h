@@ -39,3 +39,4 @@ Clipper2Lib::FillRule from_c(ClipperFillRule fr);
 Clipper2Lib::JoinType from_c(ClipperJoinType jt);
 Clipper2Lib::EndType from_c(ClipperEndType et);
 Clipper2Lib::PointInPolygonResult from_c(ClipperPointInPolygonResult res);
+Clipper2Lib::DeltaCallback64 from_c(ClipperDeltaCallback64 cb);
