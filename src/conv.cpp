@@ -296,3 +296,20 @@ Clipper2Lib::DeltaCallback64 from_c(ClipperDeltaCallback64 cb) {
     return cb(cpath64, cpathd, curr_idx, prev_idx);
   };
 }
+
+#ifdef GO_BINDINGS
+Clipper2Lib::DeltaCallback64 from_c(uintptr_t cb) {
+  return [=](const Clipper2Lib::Path64 &path,
+             const Clipper2Lib::PathD &path_normals, size_t curr_idx,
+             size_t prev_idx) {
+    // casting is required because input parameters are const
+    auto *cpath64 = const_cast<ClipperPath64 *>(
+        reinterpret_cast<const ClipperPath64 *>(&path));
+    auto *cpathd = const_cast<ClipperPathD *>(
+        reinterpret_cast<const ClipperPathD *>(&path_normals));
+
+    // callback is a function defined in Go
+    return goDeltaCallback64(cb, cpath64, cpathd, curr_idx, prev_idx);
+  };
+}
+#endif

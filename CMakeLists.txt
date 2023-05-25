@@ -13,6 +13,11 @@ option(BUILD_SHARED_LIBS ON)
 
 add_compile_options(-fPIC)
 
+# set #define GO_BINDINGS if we are building for Go
+if(GO_BINDINGS)
+    add_compile_definitions(GO_BINDINGS)
+endif()
+
 add_subdirectory(vendor/Clipper2/CPP)
 
 file(GLOB_RECURSE SOURCE_FILES  src/*.cpp)
@@ -31,9 +36,9 @@ if(CLIPPER2_EXAMPLES)
             offset
             PRIVATE clipper2c Clipper2
     )
-endif()
 
-target_include_directories(offset PUBLIC clipper2c/include)
+    target_include_directories(offset PUBLIC clipper2c/include)
+endif()
 
 target_link_libraries(
   clipper2c
