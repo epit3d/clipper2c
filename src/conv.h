@@ -42,5 +42,5 @@ Clipper2Lib::PointInPolygonResult from_c(ClipperPointInPolygonResult res);
 Clipper2Lib::DeltaCallback64 from_c(ClipperDeltaCallback64 cb);
 
 #ifdef GO_BINDINGS
-Clipper2Lib::DeltaCallback64 from_c(uintptr_t cb);
+Clipper2Lib::DeltaCallback64 from_c(uintptr_t h, ClipperDeltaGoCallback64 cb);
 #endif

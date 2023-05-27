@@ -392,7 +392,7 @@ clipper_clipperoffset_execute_callback(void *mem, ClipperClipperOffset *c,
 #ifdef GO_BINDINGS
 ClipperPaths64 *
 clipper_clipperoffset_execute_gocallback(void *mem, ClipperClipperOffset *c,
-                                         uintptr_t h);
+                                          ClipperDeltaGoCallback64 cb);
 #endif
 // memory size
 
