@@ -11,24 +11,24 @@
 using namespace Clipper2Lib;
 
 namespace {
-double point64_distance_sqr(ClipperPoint64 a, ClipperPoint64 b) {
-  return Sqr(a.x - b.x) + Sqr(a.y - b.y);
-}
+  double point64_distance_sqr(ClipperPoint64 a, ClipperPoint64 b) {
+    return Sqr(a.x - b.x) + Sqr(a.y - b.y);
+  }
 
-double pointd_distance_sqr(ClipperPointD a, ClipperPointD b) {
-  return Sqr(a.x - b.x) + Sqr(a.y - b.y);
-}
+  double pointd_distance_sqr(ClipperPointD a, ClipperPointD b) {
+    return Sqr(a.x - b.x) + Sqr(a.y - b.y);
+  }
 
-double point64_cross_product(ClipperPoint64 a, ClipperPoint64 b,
-                             ClipperPoint64 c) {
-  return (static_cast<double>(b.x - a.x) * static_cast<double>(c.y - b.y) -
-          static_cast<double>(b.y - a.y) * static_cast<double>(c.x - b.x));
-}
+  double point64_cross_product(ClipperPoint64 a, ClipperPoint64 b,
+                               ClipperPoint64 c) {
+    return (static_cast<double>(b.x - a.x) * static_cast<double>(c.y - b.y) -
+            static_cast<double>(b.y - a.y) * static_cast<double>(c.x - b.x));
+  }
 
-double pointd_cross_product(ClipperPointD a, ClipperPointD b, ClipperPointD c) {
-  return ((b.x - a.x) * (c.y - b.y) - (b.y - a.y) * (c.x - b.x));
-}
-} // namespace
+  double pointd_cross_product(ClipperPointD a, ClipperPointD b, ClipperPointD c) {
+    return ((b.x - a.x) * (c.y - b.y) - (b.y - a.y) * (c.x - b.x));
+  }
+}// namespace
 
 #ifdef __cplusplus
 extern "C" {
@@ -63,8 +63,8 @@ ClipperPathsD *clipper_pathsd_boolean_op(void *mem, ClipperClipType cliptype,
 }
 
 void clipper_pathsd_boolean_op_tree(
-    ClipperClipType cliptype, ClipperFillRule fillrule, ClipperPathsD *subjects,
-    ClipperPathsD *clips, ClipperPolyTreeD *solution, int decimal_prec) {
+        ClipperClipType cliptype, ClipperFillRule fillrule, ClipperPathsD *subjects,
+        ClipperPathsD *clips, ClipperPolyTreeD *solution, int decimal_prec) {
   BooleanOp(from_c(cliptype), from_c(fillrule), *from_c(subjects),
             *from_c(clips), *from_c(solution), decimal_prec);
 }
@@ -97,7 +97,7 @@ ClipperPathsD *clipper_pathsd_union(void *mem, ClipperPathsD *subjects,
                                     ClipperFillRule fillrule,
                                     int decimal_prec) {
   auto p =
-      Union(*from_c(subjects), *from_c(clips), from_c(fillrule), decimal_prec);
+          Union(*from_c(subjects), *from_c(clips), from_c(fillrule), decimal_prec);
   return to_c(new (mem) PathsD(p));
 }
 
@@ -128,7 +128,7 @@ ClipperPathsD *clipper_pathsd_xor(void *mem, ClipperPathsD *subjects,
                                   ClipperPathsD *clips,
                                   ClipperFillRule fillrule, int decimal_prec) {
   auto p =
-      Xor(*from_c(subjects), *from_c(clips), from_c(fillrule), decimal_prec);
+          Xor(*from_c(subjects), *from_c(clips), from_c(fillrule), decimal_prec);
   return to_c(new (mem) PathsD(p));
 }
 
@@ -139,7 +139,7 @@ ClipperPaths64 *clipper_paths64_inflate(void *mem, ClipperPaths64 *paths,
                                         ClipperEndType et, double miter_limit) {
 
   auto p =
-      InflatePaths(*from_c(paths), delta, from_c(jt), from_c(et), miter_limit);
+          InflatePaths(*from_c(paths), delta, from_c(jt), from_c(et), miter_limit);
   return to_c(new (mem) Paths64(p));
 }
 
@@ -643,7 +643,7 @@ ClipperPathsD *clipper_pathd_minkowski_diff(void *mem, ClipperPathD *pattern,
                                             ClipperPathD *path, int is_closed,
                                             int precision) {
   auto ps =
-      MinkowskiDiff(*from_c(pattern), *from_c(path), is_closed, precision);
+          MinkowskiDiff(*from_c(pattern), *from_c(path), is_closed, precision);
   return to_c(new (mem) PathsD(ps));
 }
 

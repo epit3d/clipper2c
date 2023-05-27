@@ -91,16 +91,16 @@ ClipperPaths64 *clipper_clipperoffset_execute(void *mem,
 ClipperPaths64 *
 clipper_clipperoffset_execute_callback(void *mem, ClipperClipperOffset *c,
                                        ClipperDeltaCallback64 cb) {
-        auto result = new (mem) Paths64();
-        from_c(c)->Execute(from_c(cb), *result);
-        return to_c(result);
+  auto result = new (mem) Paths64();
+  from_c(c)->Execute(from_c(cb), *result);
+  return to_c(result);
 }
 
 #ifdef GO_BINDINGS
 
 ClipperPaths64 *
 clipper_clipperoffset_execute_gocallback(void *mem, ClipperClipperOffset *c,
-                                          ClipperDeltaGoCallback64 cb) {
+                                         ClipperDeltaGoCallback64 cb) {
 
   auto result = new (mem) Paths64();
   from_c(c)->Execute(from_c(c->handle, cb), *result);

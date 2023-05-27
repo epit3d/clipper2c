@@ -52,7 +52,10 @@ typedef enum ClipperClipType {
   XOR
 } ClipperClipType;
 
-typedef enum ClipperPathType { SUBJECT, CLIP } ClipperPathType;
+typedef enum ClipperPathType {
+  SUBJECT,
+  CLIP
+} ClipperPathType;
 
 typedef enum ClipperJoinType {
   SQUARE_JOIN,
@@ -80,8 +83,8 @@ typedef double (*ClipperDeltaCallback64)(ClipperPath64 *path,
                                          size_t curr_idx, size_t prev_idx);
 #ifdef GO_BINDINGS
 typedef double (*ClipperDeltaGoCallback64)(uintptr_t h, ClipperPath64 *path,
-                                            ClipperPathD *path_normals, size_t curr_idx,
-                                            size_t prev_idx);
+                                           ClipperPathD *path_normals, size_t curr_idx,
+                                           size_t prev_idx);
 #endif
 
 #ifdef __cplusplus
